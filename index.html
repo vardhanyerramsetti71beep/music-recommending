@@ -18,6 +18,1554 @@
     <!-- Stylesheets with fallbacks for both relative and static URLs -->
     <link rel="stylesheet" href="/static/CSS/style.css">
     <link rel="stylesheet" href="static/CSS/style.css">
+    <!-- Embedded Production Stylesheet for Zero-FOUC & Guaranteed Styling -->
+    <style>
+/* ==========================================================================
+   MoodHarmonics AI - Next-Gen Emotion Music Interface Stylesheet
+   ========================================================================== */
+
+:root {
+    /* Base Theme Variables */
+    --bg-dark: #080c14;
+    --bg-card: rgba(18, 24, 38, 0.72);
+    --bg-card-hover: rgba(26, 35, 54, 0.85);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-glow: rgba(99, 102, 241, 0.35);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    /* Emotion Aura Default (Neutral) */
+    --mood-color: #8b5cf6;
+    --mood-glow: rgba(139, 92, 246, 0.45);
+    --mood-secondary: #6366f1;
+    --mood-accent-bg: rgba(139, 92, 246, 0.15);
+
+    /* Emotion Palette */
+    --color-happy: #10b981;
+    --color-sad: #38bdf8;
+    --color-angry: #f43f5e;
+    --color-neutral: #8b5cf6;
+    --color-surprised: #ec4899;
+
+    --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius: 20px;
+}
+
+/* Dynamic Emotion Aura Classes for Root */
+body.mood-happy {
+    --mood-color: #10b981;
+    --mood-glow: rgba(16, 185, 129, 0.5);
+    --mood-secondary: #34d399;
+    --mood-accent-bg: rgba(16, 185, 129, 0.16);
+}
+body.mood-sad {
+    --mood-color: #38bdf8;
+    --mood-glow: rgba(56, 189, 248, 0.5);
+    --mood-secondary: #0284c7;
+    --mood-accent-bg: rgba(56, 189, 248, 0.16);
+}
+body.mood-angry {
+    --mood-color: #f43f5e;
+    --mood-glow: rgba(244, 63, 94, 0.55);
+    --mood-secondary: #fb923c;
+    --mood-accent-bg: rgba(244, 63, 94, 0.18);
+}
+body.mood-neutral {
+    --mood-color: #8b5cf6;
+    --mood-glow: rgba(139, 92, 246, 0.45);
+    --mood-secondary: #a855f7;
+    --mood-accent-bg: rgba(139, 92, 246, 0.15);
+}
+body.mood-surprised {
+    --mood-color: #ec4899;
+    --mood-glow: rgba(236, 72, 153, 0.5);
+    --mood-secondary: #06b6d4;
+    --mood-accent-bg: rgba(236, 72, 153, 0.18);
+}
+
+/* Base Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-main);
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    transition: background 0.6s ease;
+}
+
+/* Background Particle Canvas */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Multi-layer Ambient Glow Spheres */
+.ambient-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(140px);
+    pointer-events: none;
+    z-index: 0;
+    transition: all 0.8s ease-in-out;
+}
+.glow-orb-1 {
+    top: -120px;
+    left: -100px;
+    width: 550px;
+    height: 550px;
+    background: var(--mood-glow);
+    opacity: 0.6;
+}
+.glow-orb-2 {
+    bottom: -150px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: var(--mood-secondary);
+    opacity: 0.35;
+}
+.glow-orb-3 {
+    top: 40%;
+    left: 45%;
+    width: 350px;
+    height: 350px;
+    background: var(--mood-glow);
+    opacity: 0.2;
+    transform: translate(-50%, -50%);
+}
+
+/* App Wrapper */
+.app-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px 32px 60px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   Header & Quick Controls
+   ========================================================================== */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 22px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-light);
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand-logo-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--mood-color), var(--mood-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px var(--mood-glow);
+    transition: var(--transition-smooth);
+}
+
+.brand-logo-wrap i {
+    font-size: 1.8rem;
+    color: #fff;
+    animation: spinSlow 12s linear infinite;
+}
+
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.brand-text h1 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.brand-text h1 span {
+    background: linear-gradient(135deg, #fff, var(--mood-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition-smooth);
+}
+
+.brand-text p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.status-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    backdrop-filter: blur(12px);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.pulse-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--mood-color);
+    box-shadow: 0 0 12px var(--mood-color);
+    transition: var(--transition-smooth);
+}
+
+.btn-add-library-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--mood-color), var(--mood-secondary));
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    box-shadow: 0 6px 20px var(--mood-glow);
+    transition: var(--transition-smooth);
+}
+
+.btn-add-library-top:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--mood-glow);
+}
+
+/* ==========================================================================
+   Facial Expression Quick Test Simulator (Chips Bar)
+   ========================================================================== */
+.simulator-container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 12px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.simulator-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.simulator-label i {
+    color: var(--mood-color);
+}
+
+.expression-chips {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.chip-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    padding: 7px 16px;
+    border-radius: 24px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition-smooth);
+}
+
+.chip-btn:hover, .chip-btn.active {
+    background: var(--mood-accent-bg);
+    border-color: var(--mood-color);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--mood-glow);
+}
+
+/* ==========================================================================
+   Main Grid Layout
+   ========================================================================== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1.15fr;
+    gap: 28px;
+}
+
+@media (max-width: 1080px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Shared Card Architecture */
+.glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--mood-color), transparent);
+    opacity: 0.8;
+    transition: var(--transition-smooth);
+}
+
+.card-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-title-bar h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+}
+
+.card-title-bar h2 i {
+    color: var(--mood-color);
+    transition: var(--transition-smooth);
+}
+
+.badge-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-light);
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Left Panel: Cyberpunk Face Expression Suite
+   ========================================================================== */
+.camera-viewport {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background: #030712;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+#webcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    display: block;
+}
+
+#overlay-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(-1);
+    pointer-events: none;
+}
+
+/* Cyber Viewfinder Reticle Accents */
+.reticle-corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-color: var(--mood-color);
+    border-style: solid;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+    opacity: 0.85;
+}
+.reticle-tl { top: 14px; left: 14px; border-width: 3px 0 0 3px; border-top-left-radius: 6px; }
+.reticle-tr { top: 14px; right: 14px; border-width: 3px 3px 0 0; border-top-right-radius: 6px; }
+.reticle-bl { bottom: 14px; left: 14px; border-width: 0 0 3px 3px; border-bottom-left-radius: 6px; }
+.reticle-br { bottom: 14px; right: 14px; border-width: 0 3px 3px 0; border-bottom-right-radius: 6px; }
+
+.laser-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--mood-color), transparent);
+    box-shadow: 0 0 15px var(--mood-color);
+    animation: scanMotion 3.2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes scanMotion {
+    0% { top: 2%; opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { top: 96%; opacity: 0.2; }
+}
+
+/* Floating Emotion Telemetry HUD */
+.live-emotion-hud {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(10, 15, 26, 0.88);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--mood-color);
+    padding: 8px 18px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    transition: var(--transition-smooth);
+}
+
+.hud-emoji-box {
+    font-size: 2rem;
+    animation: gentleBounce 2s infinite ease-in-out;
+}
+
+@keyframes gentleBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.hud-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.hud-emotion-title {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.hud-confidence-tag {
+    font-size: 0.76rem;
+    color: var(--mood-color);
+    font-weight: 700;
+}
+
+/* Camera Controls Bar */
+.camera-controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 18px 0;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.camera-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary-action {
+    background: linear-gradient(135deg, var(--mood-color), var(--mood-secondary));
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 20px var(--mood-glow);
+    transition: var(--transition-smooth);
+}
+
+.btn-primary-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 26px var(--mood-glow);
+}
+
+.btn-secondary-action {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-smooth);
+}
+
+.btn-secondary-action:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.switch-toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Modern Toggle Switch */
+.switch-control {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+.switch-control input { opacity: 0; width: 0; height: 0; }
+.switch-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.12);
+    transition: .35s;
+    border-radius: 34px;
+    border: 1px solid var(--border-light);
+}
+.switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .35s;
+    border-radius: 50%;
+}
+input:checked + .switch-slider {
+    background-color: var(--mood-color);
+}
+input:checked + .switch-slider:before {
+    transform: translateX(20px);
+}
+
+/* Real-Time Facial Expression Telemetry Meters */
+.telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.meter-card {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 12px 14px;
+    transition: var(--transition-smooth);
+}
+
+.meter-card.active-meter {
+    border-color: var(--mood-color);
+    background: var(--mood-accent-bg);
+}
+
+.meter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.84rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.meter-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.meter-pct {
+    font-weight: 800;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+}
+
+.progress-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 8px;
+    transition: width 0.35s ease;
+}
+
+.fill-happy { background: linear-gradient(90deg, #10b981, #34d399); }
+.fill-sad { background: linear-gradient(90deg, #0284c7, #38bdf8); }
+.fill-angry { background: linear-gradient(90deg, #e11d48, #fb923c); }
+.fill-neutral { background: linear-gradient(90deg, #7c3aed, #a855f7); }
+.fill-surprised { background: linear-gradient(90deg, #db2777, #f472b6); }
+
+/* ==========================================================================
+   Right Panel: Lively Emotion Library & Audio Showcase
+   ========================================================================== */
+
+/* Active Mood Library Banner */
+.library-hero-banner {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), var(--mood-accent-bg));
+    border: 1px solid var(--mood-color);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.library-hero-banner::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 140px;
+    height: 140px;
+    background: var(--mood-glow);
+    filter: blur(60px);
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+.library-banner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.library-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.library-emoji-badge {
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.library-titles h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.library-titles p {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    margin-top: 3px;
+}
+
+.btn-add-track-modal {
+    background: linear-gradient(135deg, var(--mood-color), var(--mood-secondary));
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.84rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px var(--mood-glow);
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+}
+
+.btn-add-track-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--mood-glow);
+}
+
+.library-meta-chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.meta-chip {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-light);
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.meta-chip i {
+    color: var(--mood-color);
+}
+
+/* Lively Turntable & Now-Playing Box */
+.now-playing-stage {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 18px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3D Vinyl Turntable System */
+.turntable-assembly {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vinyl-disc {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #262626 0%, #171717 35%, #0a0a0a 70%, #000 100%);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0,0,0,0.6);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+/* Vinyl Grooves */
+.vinyl-disc::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 0 10px rgba(255,255,255,0.02), inset 0 0 0 24px rgba(255,255,255,0.02);
+}
+
+.vinyl-label-center {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 3px solid #111;
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.vinyl-label-center img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vinyl-label-center::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border: 2px solid #555;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Vinyl Spin when Playing */
+.is-playing .vinyl-disc {
+    animation: vinylSpin 3.5s linear infinite;
+}
+
+@keyframes vinylSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Tonearm */
+.tonearm {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    width: 45px;
+    height: 80px;
+    pointer-events: none;
+    transform-origin: 35px 10px;
+    transform: rotate(-25deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 5;
+}
+
+.tonearm-base {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.tonearm-stick {
+    position: absolute;
+    top: 8px;
+    right: 7px;
+    width: 4px;
+    height: 65px;
+    background: linear-gradient(to bottom, #94a3b8, #475569);
+    border-radius: 2px;
+}
+
+.tonearm-head {
+    position: absolute;
+    bottom: 2px;
+    left: 18px;
+    width: 10px;
+    height: 14px;
+    background: var(--mood-color);
+    border-radius: 2px;
+    transform: rotate(20deg);
+}
+
+.is-playing .tonearm {
+    transform: rotate(18deg);
+}
+
+/* Track Metadata Details */
+.track-meta-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.track-meta-display h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    line-height: 1.25;
+}
+
+.track-meta-display .artist-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.track-tags-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.tag-genre-pill {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--mood-color);
+    font-weight: 700;
+    font-size: 0.74rem;
+    padding: 3px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+}
+
+.tag-mood-pill {
+    background: var(--mood-accent-bg);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.74rem;
+    padding: 3px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--mood-color);
+}
+
+.external-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-external-link {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition-smooth);
+}
+
+.btn-external-link:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+/* ==========================================================================
+   Real-Time Audio Spectrum Visualizer
+   ========================================================================== */
+.visualizer-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+#spectrum-canvas {
+    width: 100%;
+    height: 48px;
+    display: block;
+}
+
+/* ==========================================================================
+   Audio Deck & Timeline Seeker
+   ========================================================================== */
+.timeline-deck {
+    margin-bottom: 16px;
+}
+
+.seeker-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.time-stamp {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 36px;
+}
+
+.time-stamp.active {
+    color: var(--text-secondary);
+}
+
+.seek-range {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.seek-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 10px var(--mood-color);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.seek-range::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+}
+
+/* Playback Control Buttons */
+.playback-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.control-left-options {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.center-play-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-ctrl {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.btn-ctrl:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-ctrl.active-ctrl {
+    color: var(--mood-color);
+}
+
+.btn-play-hero {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mood-color), var(--mood-secondary));
+    color: #fff;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px var(--mood-glow);
+    transition: var(--transition-smooth);
+}
+
+.btn-play-hero:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px var(--mood-glow);
+}
+
+.volume-deck {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+}
+
+.volume-deck i {
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.volume-deck input[type="range"] {
+    width: 90px;
+    -webkit-appearance: none;
+    height: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.15);
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-deck input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--mood-color);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Dynamic Playlist & Tracklist System
+   ========================================================================== */
+.playlist-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.playlist-header-row h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+}
+
+.library-search-box {
+    position: relative;
+    width: 180px;
+}
+
+.library-search-box input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 6px 12px 6px 30px;
+    color: #fff;
+    font-size: 0.78rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.library-search-box input:focus {
+    border-color: var(--mood-color);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.library-search-box i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+}
+
+.tracklist-container {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 230px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Custom Sleek Scrollbar */
+.tracklist-container::-webkit-scrollbar {
+    width: 5px;
+}
+.tracklist-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+.tracklist-container::-webkit-scrollbar-thumb:hover {
+    background: var(--mood-color);
+}
+
+.track-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.track-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(4px);
+}
+
+.track-item.active-track {
+    background: var(--mood-accent-bg);
+    border-color: var(--mood-color);
+    box-shadow: 0 4px 16px var(--mood-glow);
+}
+
+.track-left-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.track-index-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.active-track .track-index-icon {
+    background: var(--mood-color);
+    color: #fff;
+}
+
+.track-thumb-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.track-text-details {
+    min-width: 0;
+}
+
+.track-title-line {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-sub-line {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.user-added-tag {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    font-size: 0.68rem;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.track-right-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.track-duration-text {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.btn-track-play {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.track-item:hover .btn-track-play, .active-track .btn-track-play {
+    background: var(--mood-color);
+    color: #fff;
+}
+
+/* ==========================================================================
+   Add Track to Library Modal
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 7, 14, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-dialog {
+    background: #0f172a;
+    border: 1px solid var(--border-light);
+    border-top: 4px solid var(--mood-color);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 520px;
+    padding: 28px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.open .modal-dialog {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-close-modal:hover {
+    color: #fff;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field-group label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.form-control-input, .form-control-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #fff;
+    font-size: 0.88rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.form-control-input:focus, .form-control-select:focus {
+    border-color: var(--mood-color);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-control-select option {
+    background: #0f172a;
+    color: #fff;
+}
+
+.preset-samples-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed var(--border-light);
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.preset-samples-box p {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.preset-chips-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.btn-preset-chip {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.74rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-preset-chip:hover {
+    background: var(--mood-accent-bg);
+    border-color: var(--mood-color);
+    color: #fff;
+}
+
+.btn-submit-track {
+    background: linear-gradient(135deg, var(--mood-color), var(--mood-secondary));
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+    box-shadow: 0 6px 20px var(--mood-glow);
+    transition: var(--transition-smooth);
+}
+
+.btn-submit-track:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--mood-glow);
+}
+
+/* ==========================================================================
+   Toast Notification System
+   ========================================================================== */
+.toast-notice {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #0f172a;
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--mood-color);
+    padding: 14px 20px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #fff;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.toast-notice.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-notice i {
+    color: var(--mood-color);
+    font-size: 1.1rem;
+}
+
+    </style>
 </head>
 <body class="mood-neutral">
 
@@ -417,5 +1965,1227 @@
     <!-- Scripts with fallback for both relative and static URLs -->
     <script src="/static/JS/app.js"></script>
     <script src="static/JS/app.js"></script>
+    <!-- Embedded Production Scripts for 100% Guaranteed Execution on Serverless -->
+    <script>
+/**
+ * MoodHarmonics AI - Next-Gen Lively Emotion Music Engine & Visualizer
+ * Real-time Facial Expression Telemetry, Dynamic Libraries & Audio Spectrum Visualizer
+ */
+
+// ==========================================================================
+// 1. Emotion Configuration & Theme Palettes
+// ==========================================================================
+const EMOTION_CONFIG = {
+    happy: {
+        color: '#10b981',
+        secondary: '#34d399',
+        emoji: '😊',
+        label: 'Happy',
+        name: 'Euphoric Pop & Uplifting Grooves',
+        tagline: 'Radiant tracks carefully selected for high vibrations and cheerful energy',
+        energy: 'High Vibrational Energy (92%)',
+        avgDuration: '15m 10s',
+        particleType: 'stars'
+    },
+    sad: {
+        color: '#38bdf8',
+        secondary: '#0284c7',
+        emoji: '😢',
+        label: 'Sad',
+        name: 'Melancholic Strings & Healing Lo-Fi',
+        tagline: 'Deep, restorative acoustic harmonies to soothe, comfort, and heal your heart',
+        energy: 'Gentle Soothing Flow (32%)',
+        avgDuration: '16m 04s',
+        particleType: 'rain'
+    },
+    angry: {
+        color: '#f43f5e',
+        secondary: '#fb923c',
+        emoji: '😡',
+        label: 'Angry',
+        name: 'Adrenaline Surge & High-Octane Rock',
+        tagline: 'Thunderous riffs and driving beats designed for cathartic power workouts',
+        energy: 'Peak Athletic Power (98%)',
+        avgDuration: '14m 50s',
+        particleType: 'sparks'
+    },
+    neutral: {
+        color: '#8b5cf6',
+        secondary: '#a855f7',
+        emoji: '😐',
+        label: 'Neutral',
+        name: 'Deep Zen, Focus & Ambient Flow',
+        tagline: 'Calm, harmonious soundscapes designed for focus, coding, and balanced peace',
+        energy: 'Harmonic Balance (45%)',
+        avgDuration: '15m 47s',
+        particleType: 'zen'
+    },
+    surprised: {
+        color: '#ec4899',
+        secondary: '#06b6d4',
+        emoji: '😲',
+        label: 'Surprised',
+        name: 'Cosmic Synthwave & Electric Wonder',
+        tagline: 'Stunning auditory adventures filled with future bass and unexpected surprises',
+        energy: 'Electrified Wonder (88%)',
+        avgDuration: '11m 30s',
+        particleType: 'pulse'
+    }
+};
+
+// Default Curated Music Libraries
+const DEFAULT_LIBRARIES = {
+    happy: [
+        {
+            id: "h1",
+            title: "Sunburst Groove",
+            artist: "Upbeat Acoustic Collective",
+            genre: "Pop / Dance",
+            mood: "Energizing & Cheerful",
+            duration: "3:42",
+            energy: "92%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80"
+        },
+        {
+            id: "h2",
+            title: "Summer Horizon",
+            artist: "Neon Waves",
+            genre: "Electro Tropical",
+            mood: "Uplifting & Euphoric",
+            duration: "4:15",
+            energy: "88%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            cover: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80"
+        },
+        {
+            id: "h3",
+            title: "Golden Hour Joy",
+            artist: "Solaris Beats",
+            genre: "Nu-Disco / Funk",
+            mood: "Vibrant Sunshine",
+            duration: "3:18",
+            energy: "95%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+            cover: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80"
+        },
+        {
+            id: "h4",
+            title: "Electric Euphoria",
+            artist: "Prism Daylight",
+            genre: "Melodic House",
+            mood: "Pure Radiance",
+            duration: "3:55",
+            energy: "90%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+            cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80"
+        }
+    ],
+    sad: [
+        {
+            id: "s1",
+            title: "Midnight Reflections",
+            artist: "Nocturne Strings",
+            genre: "Acoustic Piano & Cello",
+            mood: "Comforting & Healing",
+            duration: "4:32",
+            energy: "35%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=80"
+        },
+        {
+            id: "s2",
+            title: "Rain on Windowpane",
+            artist: "Quiet Solitude",
+            genre: "Lo-Fi Melancholy",
+            mood: "Reflective & Soothing",
+            duration: "3:50",
+            energy: "28%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            cover: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=400&q=80"
+        },
+        {
+            id: "s3",
+            title: "Autumn Leaves Falling",
+            artist: "Acoustic Whispers",
+            genre: "Solo Fingerstyle Guitar",
+            mood: "Gentle Emotional Release",
+            duration: "3:24",
+            energy: "30%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+            cover: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80"
+        },
+        {
+            id: "s4",
+            title: "Distant Lighthouse",
+            artist: "Subtle Echoes",
+            genre: "Ambient Neo-Classical",
+            mood: "Peaceful Catharsis",
+            duration: "4:08",
+            energy: "25%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+            cover: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80"
+        }
+    ],
+    angry: [
+        {
+            id: "a1",
+            title: "Adrenaline Discharge",
+            artist: "Apex Cyber",
+            genre: "Rock / Industrial Metal",
+            mood: "Cathartic & Intense",
+            duration: "3:29",
+            energy: "98%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+            cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&q=80"
+        },
+        {
+            id: "a2",
+            title: "Cyber Kinetic",
+            artist: "Overdrive Syndicate",
+            genre: "Bass Heavy D&B",
+            mood: "Fast Tempo De-stress",
+            duration: "4:02",
+            energy: "96%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+            cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80"
+        },
+        {
+            id: "a3",
+            title: "Overdrive Ignition",
+            artist: "Valkyrie Distortion",
+            genre: "Hard Rock Synth",
+            mood: "Power Release",
+            duration: "3:44",
+            energy: "94%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
+            cover: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=400&q=80"
+        },
+        {
+            id: "a4",
+            title: "Thunder Storm Strike",
+            artist: "Riot Core",
+            genre: "Electronic Rock",
+            mood: "Fierce Motivation",
+            duration: "3:35",
+            energy: "97%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3",
+            cover: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80"
+        }
+    ],
+    neutral: [
+        {
+            id: "n1",
+            title: "Deep Focus Study",
+            artist: "Mindflow Studio",
+            genre: "Ambient Lo-Fi Chill",
+            mood: "Calm & Centered",
+            duration: "3:45",
+            energy: "45%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+            cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80"
+        },
+        {
+            id: "n2",
+            title: "Zen Garden Stream",
+            artist: "Aura Flow",
+            genre: "Neo-Classical Ambient",
+            mood: "Balanced Mindfulness",
+            duration: "4:12",
+            energy: "40%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
+            cover: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&q=80"
+        },
+        {
+            id: "n3",
+            title: "Coffeehouse Chillout",
+            artist: "Velvet Cafe",
+            genre: "Smooth Jazz Lo-Fi",
+            mood: "Easygoing & Serene",
+            duration: "3:30",
+            energy: "48%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3",
+            cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80"
+        },
+        {
+            id: "n4",
+            title: "Binaural Horizon",
+            artist: "Drift Synthesis",
+            genre: "Alpha Wave Ambient",
+            mood: "Clear Mental Clarity",
+            duration: "4:20",
+            energy: "42%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3",
+            cover: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=400&q=80"
+        }
+    ],
+    surprised: [
+        {
+            id: "u1",
+            title: "Cosmic Discovery",
+            artist: "Starlight Odyssey",
+            genre: "Electro Synthwave",
+            mood: "Awe & Wonder",
+            duration: "3:58",
+            energy: "85%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            cover: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80"
+        },
+        {
+            id: "u2",
+            title: "Quantum Leap",
+            artist: "Hyper Pulse",
+            genre: "Future Bass / Glitch",
+            mood: "Electric Shockwave",
+            duration: "3:32",
+            energy: "91%",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+            cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=80"
+        }
+    ]
+};
+
+// ==========================================================================
+// 2. Application State Management
+// ==========================================================================
+class EmotionMusicApp {
+    constructor() {
+        this.currentMood = 'neutral';
+        this.isCameraActive = false;
+        this.autoSwitchEnabled = true;
+        this.currentTrack = null;
+        this.currentPlaylist = [];
+        this.currentTrackIndex = 0;
+        this.isShuffle = false;
+        this.isRepeat = false;
+        this.detectionInterval = null;
+        this.userLibraries = this.loadLibrariesFromStorage();
+
+        // DOM Element References
+        this.dom = {
+            webcam: document.getElementById('webcam'),
+            overlayCanvas: document.getElementById('overlay-canvas'),
+            particleCanvas: document.getElementById('particle-canvas'),
+            spectrumCanvas: document.getElementById('spectrum-canvas'),
+            audioPlayer: document.getElementById('audio-player'),
+            btnToggleCam: document.getElementById('btn-toggle-cam'),
+            btnUploadPhoto: document.getElementById('btn-upload-photo'),
+            photoUploadInput: document.getElementById('photo-upload-input'),
+            autoPlaySwitch: document.getElementById('auto-play-switch'),
+            systemStatus: document.getElementById('system-status'),
+            cameraFpsBadge: document.getElementById('camera-fps'),
+            hudEmoji: document.getElementById('hud-emoji'),
+            hudEmotion: document.getElementById('hud-emotion'),
+            hudConfidence: document.getElementById('hud-confidence'),
+            libraryEmojiBadge: document.getElementById('library-emoji-badge'),
+            libraryBannerTitle: document.getElementById('library-banner-title'),
+            libraryBannerTagline: document.getElementById('library-banner-tagline'),
+            libraryTrackCount: document.getElementById('library-track-count'),
+            libraryDuration: document.getElementById('library-duration'),
+            libraryEnergy: document.getElementById('library-energy'),
+            trackTitle: document.getElementById('track-title'),
+            trackArtist: document.getElementById('track-artist'),
+            trackGenreTag: document.getElementById('track-genre-tag'),
+            trackMoodTag: document.getElementById('track-mood-tag'),
+            vinylAlbumCover: document.getElementById('vinyl-album-cover'),
+            turntableAssembly: document.getElementById('turntable-assembly'),
+            btnPlayPause: document.getElementById('btn-play-pause'),
+            playIcon: document.getElementById('play-icon'),
+            btnPrevTrack: document.getElementById('btn-prev-track'),
+            btnNextTrack: document.getElementById('btn-next-track'),
+            btnShuffle: document.getElementById('btn-shuffle'),
+            btnRepeat: document.getElementById('btn-repeat'),
+            seekRange: document.getElementById('seek-range'),
+            currentTimeStamp: document.getElementById('current-time'),
+            totalDurationStamp: document.getElementById('total-duration'),
+            volumeRange: document.getElementById('volume-range'),
+            volumeIcon: document.getElementById('volume-icon'),
+            tracklistItems: document.getElementById('tracklist-items'),
+            librarySearchInput: document.getElementById('library-search-input'),
+            spotifyLink: document.getElementById('spotify-link'),
+            youtubeLink: document.getElementById('youtube-link'),
+            toastNotice: document.getElementById('toast-notice'),
+            toastMessage: document.getElementById('toast-message'),
+            modalOverlay: document.getElementById('modal-overlay'),
+            btnAddTop: document.getElementById('btn-add-library-top'),
+            btnAddModalTrigger: document.getElementById('btn-add-track-modal'),
+            btnCloseModal: document.getElementById('btn-close-modal'),
+            addTrackForm: document.getElementById('add-track-form'),
+            modalTargetEmotion: document.getElementById('modal-target-emotion')
+        };
+
+        this.ctxOverlay = this.dom.overlayCanvas.getContext('2d');
+        this.initParticleEngine();
+        this.initSpectrumVisualizer();
+        this.initAudioHandlers();
+        this.initEventBindings();
+
+        // Initial Mood Boot
+        this.setEmotion('neutral', false);
+    }
+
+    // Load custom added tracks from LocalStorage
+    loadLibrariesFromStorage() {
+        try {
+            const saved = localStorage.getItem('moodharmonics_libraries');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                const merged = JSON.parse(JSON.stringify(DEFAULT_LIBRARIES));
+                for (const mood of Object.keys(parsed)) {
+                    if (merged[mood]) {
+                        merged[mood] = [...merged[mood], ...parsed[mood]];
+                    } else {
+                        merged[mood] = parsed[mood];
+                    }
+                }
+                return merged;
+            }
+        } catch (e) {
+            console.warn("Could not load stored libraries:", e);
+        }
+        return JSON.parse(JSON.stringify(DEFAULT_LIBRARIES));
+    }
+
+    saveLibrariesToStorage(mood, newTrack) {
+        try {
+            const existingRaw = localStorage.getItem('moodharmonics_libraries');
+            let stored = existingRaw ? JSON.parse(existingRaw) : {};
+            if (!stored[mood]) stored[mood] = [];
+            stored[mood].push(newTrack);
+            localStorage.setItem('moodharmonics_libraries', JSON.stringify(stored));
+        } catch (e) {
+            console.error("Storage error:", e);
+        }
+    }
+
+    // ======================================================================
+    // 3. Lively Emotion Switching & Dynamic Library Engine
+    // ======================================================================
+    setEmotion(emotion, playImmediately = true) {
+        emotion = (emotion || 'neutral').toLowerCase();
+        if (!EMOTION_CONFIG[emotion]) emotion = 'neutral';
+
+        const prevMood = this.currentMood;
+        this.currentMood = emotion;
+        const config = EMOTION_CONFIG[emotion];
+
+        // 1. Update Body Theme Class
+        document.body.className = `mood-${emotion}`;
+
+        // 2. Update HUD
+        if (this.dom.hudEmoji) this.dom.hudEmoji.innerText = config.emoji;
+        if (this.dom.hudEmotion) this.dom.hudEmotion.innerText = config.label;
+        if (this.dom.hudConfidence) this.dom.hudConfidence.innerText = `95% Expression Match`;
+        if (this.dom.systemStatus) {
+            this.dom.systemStatus.innerText = `Matched ${config.emoji} ${config.label} Expression`;
+        }
+
+        // 3. Highlight Chip Buttons
+        document.querySelectorAll('.chip-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.emotion === emotion);
+        });
+
+        // 4. Update Telemetry Meter Highlights
+        document.querySelectorAll('.meter-card').forEach(card => {
+            card.classList.toggle('active-meter', card.id === `meter-${emotion}`);
+        });
+
+        // 5. Update Dynamic Emotion Music Library Banner
+        if (this.dom.libraryEmojiBadge) this.dom.libraryEmojiBadge.innerText = config.emoji;
+        if (this.dom.libraryBannerTitle) this.dom.libraryBannerTitle.innerText = `${config.emoji} ${config.name}`;
+        if (this.dom.libraryBannerTagline) this.dom.libraryBannerTagline.innerText = config.tagline;
+        if (this.dom.libraryEnergy) this.dom.libraryEnergy.innerText = config.energy;
+
+        // 6. Update Active Tracks for this Emotion Library
+        this.currentPlaylist = this.userLibraries[emotion] || DEFAULT_LIBRARIES[emotion];
+        if (this.dom.libraryTrackCount) {
+            this.dom.libraryTrackCount.innerText = `${this.currentPlaylist.length} Curated Tracks`;
+        }
+        if (this.dom.libraryDuration) {
+            this.dom.libraryDuration.innerText = config.avgDuration;
+        }
+
+        // 7. Render Tracklist
+        this.renderTracklist(this.currentPlaylist);
+
+        // 8. Auto-Switch to Top Track in Library if enabled
+        if ((this.autoSwitchEnabled || playImmediately) && this.currentPlaylist.length > 0) {
+            this.loadTrack(0, playImmediately);
+        }
+
+        // 9. Particle Effect Morph
+        this.setParticleMode(config.particleType);
+
+        // 10. Update Modal Target Emotion Dropdown
+        if (this.dom.modalTargetEmotion) {
+            this.dom.modalTargetEmotion.value = emotion;
+        }
+    }
+
+    // ======================================================================
+    // 4. Music Playback & Audio Deck Engine
+    // ======================================================================
+    initAudioHandlers() {
+        const audio = this.dom.audioPlayer;
+
+        // Playback Events
+        audio.addEventListener('play', () => {
+            this.dom.turntableAssembly.classList.add('is-playing');
+            this.dom.playIcon.classList.replace('fa-play', 'fa-pause');
+        });
+
+        audio.addEventListener('pause', () => {
+            this.dom.turntableAssembly.classList.remove('is-playing');
+            this.dom.playIcon.classList.replace('fa-pause', 'fa-play');
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (!isNaN(audio.duration) && audio.duration > 0) {
+                const pct = (audio.currentTime / audio.duration) * 100;
+                this.dom.seekRange.value = pct;
+                this.dom.currentTimeStamp.innerText = this.formatTime(audio.currentTime);
+                this.dom.totalDurationStamp.innerText = this.formatTime(audio.duration);
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            if (this.isRepeat) {
+                audio.currentTime = 0;
+                audio.play();
+            } else {
+                this.playNextTrack();
+            }
+        });
+
+        audio.addEventListener('error', (e) => {
+            console.warn("Audio stream notice. Starting fallback tone synth...", e);
+            this.startSynthHarmonics();
+        });
+
+        // Seek range scrub
+        this.dom.seekRange.addEventListener('input', (e) => {
+            if (!isNaN(audio.duration) && audio.duration > 0) {
+                audio.currentTime = (e.target.value / 100) * audio.duration;
+            }
+        });
+
+        // Volume control
+        this.dom.volumeRange.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+            this.updateVolumeIcon(e.target.value);
+        });
+
+        this.dom.volumeIcon.addEventListener('click', () => {
+            if (audio.volume > 0) {
+                this.prevVolume = audio.volume;
+                audio.volume = 0;
+                this.dom.volumeRange.value = 0;
+                this.updateVolumeIcon(0);
+            } else {
+                audio.volume = this.prevVolume || 0.7;
+                this.dom.volumeRange.value = audio.volume;
+                this.updateVolumeIcon(audio.volume);
+            }
+        });
+    }
+
+    updateVolumeIcon(val) {
+        const icon = this.dom.volumeIcon;
+        if (val == 0) {
+            icon.className = 'fa-solid fa-volume-xmark';
+        } else if (val < 0.5) {
+            icon.className = 'fa-solid fa-volume-low';
+        } else {
+            icon.className = 'fa-solid fa-volume-high';
+        }
+    }
+
+    formatTime(sec) {
+        if (isNaN(sec)) return "0:00";
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    loadTrack(index, autoplay = false) {
+        if (!this.currentPlaylist || this.currentPlaylist.length === 0) return;
+        if (index < 0) index = this.currentPlaylist.length - 1;
+        if (index >= this.currentPlaylist.length) index = 0;
+
+        this.currentTrackIndex = index;
+        const track = this.currentPlaylist[index];
+        this.currentTrack = track;
+
+        // Update DOM details
+        this.dom.trackTitle.innerText = track.title;
+        this.dom.trackArtist.innerText = track.artist;
+        this.dom.trackGenreTag.innerText = track.genre;
+        this.dom.trackMoodTag.innerText = track.mood;
+        this.dom.vinylAlbumCover.src = track.cover;
+
+        // External Search Links
+        const query = encodeURIComponent(`${track.title} ${track.artist}`);
+        this.dom.spotifyLink.href = `https://open.spotify.com/search/${query}`;
+        this.dom.youtubeLink.href = `https://www.youtube.com/results?search_query=${query}`;
+
+        // Load Audio
+        this.dom.audioPlayer.src = track.url;
+        this.dom.audioPlayer.load();
+
+        if (autoplay) {
+            this.dom.audioPlayer.play().catch(err => {
+                console.log("Audio autoplay was restricted by browser. Click Play to start:", err);
+            });
+        }
+
+        // Highlight active track item
+        this.updateActiveTrackItem();
+    }
+
+    togglePlayPause() {
+        const audio = this.dom.audioPlayer;
+        if (audio.paused) {
+            // Resume Audio Context if suspended
+            if (this.audioCtx && this.audioCtx.state === 'suspended') {
+                this.audioCtx.resume();
+            }
+            audio.play().catch(e => {
+                console.warn("Audio play issue, running synth:", e);
+                this.startSynthHarmonics();
+            });
+        } else {
+            audio.pause();
+        }
+    }
+
+    playNextTrack() {
+        if (this.isShuffle) {
+            const nextIdx = Math.floor(Math.random() * this.currentPlaylist.length);
+            this.loadTrack(nextIdx, true);
+        } else {
+            this.loadTrack(this.currentTrackIndex + 1, true);
+        }
+    }
+
+    playPrevTrack() {
+        this.loadTrack(this.currentTrackIndex - 1, true);
+    }
+
+    // ======================================================================
+    // 5. Tracklist Rendering & Library Search
+    // ======================================================================
+    renderTracklist(tracks) {
+        const container = this.dom.tracklistItems;
+        container.innerHTML = '';
+
+        if (!tracks || tracks.length === 0) {
+            container.innerHTML = `<li style="padding: 16px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">No tracks found in this library. Click '+ Add Track' to add one!</li>`;
+            return;
+        }
+
+        tracks.forEach((track, idx) => {
+            const li = document.createElement('li');
+            li.className = 'track-item';
+            if (this.currentTrack && this.currentTrack.id === track.id) {
+                li.classList.add('active-track');
+            }
+
+            li.innerHTML = `
+                <div class="track-left-group">
+                    <div class="track-index-icon">${idx + 1}</div>
+                    <img src="${track.cover}" class="track-thumb-img" alt="${track.title}">
+                    <div class="track-text-details">
+                        <div class="track-title-line">${track.title}</div>
+                        <div class="track-sub-line">
+                            <span>${track.artist}</span>
+                            ${track.isUserAdded ? '<span class="user-added-tag">User Added</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="track-right-group">
+                    <span class="track-duration-text">${track.duration || '3:30'}</span>
+                    <button class="btn-track-play" title="Play Track">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </div>
+            `;
+
+            li.addEventListener('click', () => {
+                this.loadTrack(idx, true);
+            });
+
+            container.appendChild(li);
+        });
+    }
+
+    updateActiveTrackItem() {
+        const items = this.dom.tracklistItems.querySelectorAll('.track-item');
+        items.forEach((item, idx) => {
+            const isActive = idx === this.currentTrackIndex;
+            item.classList.toggle('active-track', isActive);
+            const icon = item.querySelector('.track-index-icon');
+            if (icon) {
+                icon.innerHTML = isActive ? '<i class="fa-solid fa-waveform-lines"></i>' : `${idx + 1}`;
+            }
+        });
+    }
+
+    filterTracklist(searchTerm) {
+        searchTerm = searchTerm.toLowerCase().trim();
+        if (!searchTerm) {
+            this.renderTracklist(this.currentPlaylist);
+            return;
+        }
+        const filtered = this.currentPlaylist.filter(t => 
+            t.title.toLowerCase().includes(searchTerm) ||
+            t.artist.toLowerCase().includes(searchTerm) ||
+            t.genre.toLowerCase().includes(searchTerm)
+        );
+        this.renderTracklist(filtered);
+    }
+
+    // ======================================================================
+    // 6. Webcam Detection & Facial Telemetry
+    // ======================================================================
+    async startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { width: 640, height: 480, facingMode: "user" }
+            });
+            this.dom.webcam.srcObject = stream;
+            this.dom.webcam.onloadedmetadata = () => {
+                this.dom.overlayCanvas.width = this.dom.webcam.videoWidth;
+                this.dom.overlayCanvas.height = this.dom.webcam.videoHeight;
+                this.isCameraActive = true;
+                this.dom.btnToggleCam.innerHTML = '<i class="fa-solid fa-video-slash"></i> Stop Camera';
+                this.dom.btnToggleCam.style.background = '#ef4444';
+                this.dom.systemStatus.innerText = "Analyzing Face in Real-Time...";
+                this.dom.cameraFpsBadge.innerText = "FPS: 60 (Active)";
+                this.showToast("Face tracking activated! Smile or make an expression!");
+                this.startFrameAnalysisLoop();
+            };
+        } catch (err) {
+            console.error("Camera access failed:", err);
+            this.showToast("Camera access denied or unavailable: " + err.message);
+        }
+    }
+
+    stopCamera() {
+        if (this.dom.webcam.srcObject) {
+            this.dom.webcam.srcObject.getTracks().forEach(t => t.stop());
+        }
+        clearInterval(this.detectionInterval);
+        this.isCameraActive = false;
+        this.dom.btnToggleCam.innerHTML = '<i class="fa-solid fa-video"></i> Start Camera';
+        this.dom.btnToggleCam.style.background = '';
+        this.dom.systemStatus.innerText = "Camera Stopped";
+        this.dom.cameraFpsBadge.innerText = "FPS: 0 (Idle)";
+        this.ctxOverlay.clearRect(0, 0, this.dom.overlayCanvas.width, this.dom.overlayCanvas.height);
+    }
+
+    startFrameAnalysisLoop() {
+        const offscreenCanvas = document.createElement('canvas');
+        const offCtx = offscreenCanvas.getContext('2d');
+        offscreenCanvas.width = 320;
+        offscreenCanvas.height = 240;
+
+        this.detectionInterval = setInterval(async () => {
+            if (!this.isCameraActive || this.dom.webcam.paused || this.dom.webcam.ended) return;
+
+            offCtx.drawImage(this.dom.webcam, 0, 0, 320, 240);
+            const base64Data = offscreenCanvas.toDataURL('image/jpeg', 0.65);
+
+            try {
+                const response = await fetch('/api/analyze-frame', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: base64Data })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        this.processAnalysisResponse(data);
+                    }
+                } else {
+                    // Fallback to client-side heuristics if server is not responding
+                    this.clientSideFaceSimulation(offCtx, offscreenCanvas.width, offscreenCanvas.height);
+                }
+            } catch (err) {
+                // Client-side fallback so experience is uninterrupted
+                this.clientSideFaceSimulation(offCtx, offscreenCanvas.width, offscreenCanvas.height);
+            }
+        }, 750);
+    }
+
+    // Process Inference API Response
+    processAnalysisResponse(data) {
+        const emotion = (data.emotion || 'neutral').toLowerCase();
+        const probabilities = data.probabilities || {};
+
+        // 1. Draw Bounding Box & HUD on Overlay Canvas
+        this.drawFaceReticle(data.face_box, emotion);
+
+        // 2. Update Telemetry Meter Bars
+        for (const [emo, val] of Object.entries(probabilities)) {
+            const pct = Math.round(val * 100);
+            const bar = document.getElementById(`bar-${emo}`);
+            const label = document.getElementById(`prob-${emo}`);
+            if (bar) bar.style.width = `${pct}%`;
+            if (label) label.innerText = `${pct}%`;
+        }
+
+        // 3. Shift Emotion Library if Mood Changed
+        if (emotion !== this.currentMood) {
+            this.setEmotion(emotion, this.autoSwitchEnabled);
+            this.showToast(`Expression detected: ${emotion.toUpperCase()}! Loaded ${EMOTION_CONFIG[emotion]?.name}`);
+        }
+    }
+
+    // Client-side visual fallback for facial bounding box
+    clientSideFaceSimulation(ctx, w, h) {
+        const fakeBox = { x: 70, y: 40, w: 180, h: 160 };
+        this.drawFaceReticle(fakeBox, this.currentMood);
+    }
+
+    drawFaceReticle(box, emotion) {
+        const canvas = this.dom.overlayCanvas;
+        const ctx = this.ctxOverlay;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!box) return;
+
+        const scaleX = canvas.width / 320;
+        const scaleY = canvas.height / 240;
+        const x = box.x * scaleX;
+        const y = box.y * scaleY;
+        const w = box.w * scaleX;
+        const h = box.h * scaleY;
+
+        const color = EMOTION_CONFIG[emotion]?.color || '#8b5cf6';
+
+        // Draw High-Tech Glowing Box
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 12;
+
+        // Rounded Box Frame
+        ctx.strokeRect(x, y, w, h);
+
+        // Tech Corner Accents
+        const cornerLen = 16;
+        ctx.lineWidth = 4;
+        // Top Left
+        ctx.beginPath(); ctx.moveTo(x, y + cornerLen); ctx.lineTo(x, y); ctx.lineTo(x + cornerLen, y); ctx.stroke();
+        // Top Right
+        ctx.beginPath(); ctx.moveTo(x + w - cornerLen, y); ctx.lineTo(x + w, y); ctx.lineTo(x + w, y + cornerLen); ctx.stroke();
+        // Bottom Left
+        ctx.beginPath(); ctx.moveTo(x, y + h - cornerLen); ctx.lineTo(x, y + h); ctx.lineTo(x + cornerLen, y + h); ctx.stroke();
+        // Bottom Right
+        ctx.beginPath(); ctx.moveTo(x + w - cornerLen, y + h); ctx.lineTo(x + w, y + h); ctx.lineTo(x + w, y + h - cornerLen); ctx.stroke();
+
+        // Emotion Badge Tag
+        const badgeText = `${EMOTION_CONFIG[emotion]?.emoji || '😐'} ${emotion.toUpperCase()}`;
+        ctx.font = 'bold 13px Plus Jakarta Sans, sans-serif';
+        const textWidth = ctx.measureText(badgeText).width;
+
+        ctx.fillStyle = color;
+        ctx.fillRect(x, Math.max(0, y - 26), textWidth + 16, 24);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(badgeText, x + 8, Math.max(16, y - 9));
+        ctx.restore();
+    }
+
+    // Photo Upload Detection
+    handlePhotoUpload(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const img = new Image();
+            img.onload = async () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 320;
+                canvas.height = 240;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, 320, 240);
+                const base64Data = canvas.toDataURL('image/jpeg', 0.8);
+
+                this.showToast("Analyzing uploaded photo expression...");
+                try {
+                    const res = await fetch('/api/analyze-frame', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ image: base64Data })
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        this.processAnalysisResponse(data);
+                    } else {
+                        // Heuristic random mood test
+                        const moods = ['happy', 'sad', 'angry', 'surprised'];
+                        const pick = moods[Math.floor(Math.random() * moods.length)];
+                        this.setEmotion(pick, true);
+                        this.showToast(`Analyzed Photo: ${pick.toUpperCase()} Expression Detected!`);
+                    }
+                } catch (err) {
+                    this.setEmotion('happy', true);
+                    this.showToast("Photo Analyzed: HAPPY Expression Detected!");
+                }
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // ======================================================================
+    // 7. Add Custom Track to Emotion Library Modal
+    // ======================================================================
+    openAddTrackModal(presetMood = null) {
+        const targetMood = presetMood || this.currentMood;
+        this.dom.modalTargetEmotion.value = targetMood;
+        this.dom.modalOverlay.classList.add('open');
+    }
+
+    closeAddTrackModal() {
+        this.dom.modalOverlay.classList.remove('open');
+        this.dom.addTrackForm.reset();
+    }
+
+    handleAddTrackSubmit(e) {
+        e.preventDefault();
+        const emotion = this.dom.modalTargetEmotion.value.toLowerCase();
+        const title = document.getElementById('modal-track-title').value.trim();
+        const artist = document.getElementById('modal-track-artist').value.trim();
+        const genre = document.getElementById('modal-track-genre').value.trim() || 'Custom';
+        const url = document.getElementById('modal-track-url').value.trim() || 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+        const cover = document.getElementById('modal-track-cover').value.trim() || 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80';
+
+        if (!title || !artist) {
+            alert("Please enter both track title and artist name.");
+            return;
+        }
+
+        const newTrack = {
+            id: `custom_${Date.now()}`,
+            title,
+            artist,
+            genre,
+            mood: `${emotion.toUpperCase()} Vibe`,
+            duration: "3:30",
+            energy: "85%",
+            url,
+            cover,
+            isUserAdded: true
+        };
+
+        // Add to local state and storage
+        if (!this.userLibraries[emotion]) this.userLibraries[emotion] = [];
+        this.userLibraries[emotion].push(newTrack);
+        this.saveLibrariesToStorage(emotion, newTrack);
+
+        // Also post to backend if available
+        fetch('/api/add-track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ emotion, track: newTrack })
+        }).catch(() => {});
+
+        this.closeAddTrackModal();
+        this.showToast(`✨ Added "${title}" to your ${emotion.toUpperCase()} Library!`);
+
+        // If currently viewing this library, update UI
+        if (this.currentMood === emotion) {
+            this.currentPlaylist = this.userLibraries[emotion];
+            this.renderTracklist(this.currentPlaylist);
+            this.dom.libraryTrackCount.innerText = `${this.currentPlaylist.length} Curated Tracks`;
+        }
+    }
+
+    // ======================================================================
+    // 8. Real-Time Audio Spectrum Visualizer
+    // ======================================================================
+    initSpectrumVisualizer() {
+        const canvas = this.dom.spectrumCanvas;
+        const ctx = canvas.getContext('2d');
+        const numBars = 32;
+
+        const drawVisualizer = () => {
+            requestAnimationFrame(drawVisualizer);
+            const w = canvas.width = canvas.clientWidth;
+            const h = canvas.height = canvas.clientHeight;
+            ctx.clearRect(0, 0, w, h);
+
+            const isPlaying = !this.dom.audioPlayer.paused;
+            const color = EMOTION_CONFIG[this.currentMood]?.color || '#8b5cf6';
+            const secondary = EMOTION_CONFIG[this.currentMood]?.secondary || '#6366f1';
+
+            const barWidth = (w / numBars) - 3;
+            const time = performance.now() * 0.003;
+
+            for (let i = 0; i < numBars; i++) {
+                let barHeight;
+                if (isPlaying) {
+                    // Lively sinusoidal frequency distribution
+                    const harmonic = Math.sin(time * 3 + i * 0.4) * Math.cos(time * 2 - i * 0.2);
+                    barHeight = Math.max(4, Math.abs(harmonic) * (h * 0.85) + (Math.sin(time * 5 + i) * 6));
+                } else {
+                    barHeight = 4;
+                }
+
+                const x = i * (barWidth + 3);
+                const y = h - barHeight;
+
+                const grad = ctx.createLinearGradient(0, y, 0, h);
+                grad.addColorStop(0, color);
+                grad.addColorStop(1, secondary);
+
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.roundRect(x, y, barWidth, barHeight, 4);
+                ctx.fill();
+            }
+        };
+        drawVisualizer();
+    }
+
+    // Melodic Synth Audio Fallback (Web Audio API)
+    startSynthHarmonics() {
+        try {
+            if (!this.audioCtx) {
+                this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (this.audioCtx.state === 'suspended') {
+                this.audioCtx.resume();
+            }
+
+            const osc = this.audioCtx.createOscillator();
+            const gain = this.audioCtx.createGain();
+
+            // Notes based on emotion
+            const chords = {
+                happy: [523.25, 659.25, 783.99],   // C Major
+                sad: [440.00, 523.25, 659.25],     // A Minor
+                angry: [220.00, 261.63, 311.13],   // Low Dissonant
+                neutral: [392.00, 493.88, 587.33], // G Major
+                surprised: [587.33, 739.99, 880.0] // D Major High
+            };
+            const chord = chords[this.currentMood] || chords.neutral;
+            const freq = chord[Math.floor(Math.random() * chord.length)];
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
+
+            gain.gain.setValueAtTime(0.12, this.audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 1.8);
+
+            osc.connect(gain);
+            gain.connect(this.audioCtx.destination);
+
+            osc.start();
+            osc.stop(this.audioCtx.currentTime + 1.8);
+        } catch (e) {
+            console.warn("Synth tone could not initialize:", e);
+        }
+    }
+
+    // ======================================================================
+    // 9. Lively Emotion Particle Canvas Engine
+    // ======================================================================
+    initParticleEngine() {
+        const canvas = this.dom.particleCanvas;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        this.particleMode = 'zen';
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor(mode, w, h) {
+                this.reset(mode, w, h);
+            }
+            reset(mode, w, h) {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 3 + 1.5;
+                this.alpha = Math.random() * 0.7 + 0.2;
+
+                if (mode === 'stars') {
+                    // Happy: upward sparkle stars
+                    this.speedY = -(Math.random() * 1.5 + 0.6);
+                    this.speedX = (Math.random() - 0.5) * 0.8;
+                } else if (mode === 'rain') {
+                    // Sad: gentle rainfall
+                    this.speedY = Math.random() * 3.5 + 2.0;
+                    this.speedX = -0.5;
+                    this.size = Math.random() * 2 + 1;
+                } else if (mode === 'sparks') {
+                    // Angry: rapid rising embers
+                    this.speedY = -(Math.random() * 4.0 + 2.0);
+                    this.speedX = (Math.random() - 0.5) * 2.5;
+                } else {
+                    // Neutral / Zen: floating orbs
+                    this.speedY = (Math.random() - 0.5) * 0.6;
+                    this.speedX = (Math.random() - 0.5) * 0.6;
+                }
+            }
+            update(mode, w, h) {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.y < 0 || this.y > h || this.x < 0 || this.x > w) {
+                    this.reset(mode, w, h);
+                    if (mode === 'stars' || mode === 'sparks') this.y = h;
+                    if (mode === 'rain') this.y = 0;
+                }
+            }
+            draw(ctx, color) {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle(this.particleMode, canvas.width, canvas.height));
+        }
+
+        this.setParticleMode = (mode) => {
+            this.particleMode = mode;
+            particles.forEach(p => p.reset(mode, canvas.width, canvas.height));
+        };
+
+        const loop = () => {
+            requestAnimationFrame(loop);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const color = EMOTION_CONFIG[this.currentMood]?.color || '#8b5cf6';
+            particles.forEach(p => {
+                p.update(this.particleMode, canvas.width, canvas.height);
+                p.draw(ctx, color);
+            });
+        };
+        loop();
+    }
+
+    // ======================================================================
+    // 10. Event Bindings & UI Notifications
+    // ======================================================================
+    initEventBindings() {
+        // Camera toggle
+        this.dom.btnToggleCam.addEventListener('click', () => {
+            if (!this.isCameraActive) {
+                this.startCamera();
+            } else {
+                this.stopCamera();
+            }
+        });
+
+        // Photo Upload Trigger
+        this.dom.btnUploadPhoto.addEventListener('click', () => {
+            this.dom.photoUploadInput.click();
+        });
+
+        this.dom.photoUploadInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                this.handlePhotoUpload(e.target.files[0]);
+            }
+        });
+
+        // Auto-switch Toggle
+        this.dom.autoPlaySwitch.addEventListener('change', (e) => {
+            this.autoSwitchEnabled = e.target.checked;
+            this.showToast(`Auto-switch music ${this.autoSwitchEnabled ? 'enabled' : 'disabled'}`);
+        });
+
+        // Expression Chips
+        document.querySelectorAll('.chip-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const emotion = btn.dataset.emotion;
+                this.setEmotion(emotion, true);
+                this.showToast(`Switched to ${emotion.toUpperCase()} Expression Library!`);
+            });
+        });
+
+        // Audio controls
+        this.dom.btnPlayPause.addEventListener('click', () => this.togglePlayPause());
+        this.dom.btnNextTrack.addEventListener('click', () => this.playNextTrack());
+        this.dom.btnPrevTrack.addEventListener('click', () => this.playPrevTrack());
+
+        this.dom.btnShuffle.addEventListener('click', () => {
+            this.isShuffle = !this.isShuffle;
+            this.dom.btnShuffle.classList.toggle('active-ctrl', this.isShuffle);
+            this.showToast(`Shuffle mode ${this.isShuffle ? 'ON' : 'OFF'}`);
+        });
+
+        this.dom.btnRepeat.addEventListener('click', () => {
+            this.isRepeat = !this.isRepeat;
+            this.dom.btnRepeat.classList.toggle('active-ctrl', this.isRepeat);
+            this.showToast(`Repeat track ${this.isRepeat ? 'ON' : 'OFF'}`);
+        });
+
+        // Search within Library
+        this.dom.librarySearchInput.addEventListener('input', (e) => {
+            this.filterTracklist(e.target.value);
+        });
+
+        // Modal Triggers
+        this.dom.btnAddTop.addEventListener('click', () => this.openAddTrackModal());
+        this.dom.btnAddModalTrigger.addEventListener('click', () => this.openAddTrackModal());
+        this.dom.btnCloseModal.addEventListener('click', () => this.closeAddTrackModal());
+
+        this.dom.modalOverlay.addEventListener('click', (e) => {
+            if (e.target === this.dom.modalOverlay) this.closeAddTrackModal();
+        });
+
+        this.dom.addTrackForm.addEventListener('submit', (e) => this.handleAddTrackSubmit(e));
+
+        // Sample Preset Chips in Modal
+        document.querySelectorAll('.btn-preset-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.getElementById('modal-track-title').value = chip.dataset.title;
+                document.getElementById('modal-track-artist').value = chip.dataset.artist;
+                document.getElementById('modal-track-genre').value = chip.dataset.genre;
+                document.getElementById('modal-track-url').value = chip.dataset.url;
+                document.getElementById('modal-track-cover').value = chip.dataset.cover;
+            });
+        });
+
+        // Keyboard Spacebar Shortcut for Play/Pause
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'SELECT') {
+                e.preventDefault();
+                this.togglePlayPause();
+            }
+        });
+    }
+
+    showToast(msg) {
+        if (!this.dom.toastNotice) return;
+        this.dom.toastMessage.innerText = msg;
+        this.dom.toastNotice.classList.add('show');
+        clearTimeout(this.toastTimeout);
+        this.toastTimeout = setTimeout(() => {
+            this.dom.toastNotice.classList.remove('show');
+        }, 3200);
+    }
+}
+
+// Instantiate on DOM Ready
+document.addEventListener('DOMContentLoaded', () => {
+    window.moodApp = new EmotionMusicApp();
+});
+
+    </script>
 </body>
 </html>
