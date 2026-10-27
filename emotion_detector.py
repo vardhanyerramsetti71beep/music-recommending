@@ -4,11 +4,11 @@ import os
 from collections import deque
 
 class EmotionDetector:
-    EMOTIONS = ['angry', 'happy', 'neutral', 'sad']
+    EMOTIONS = ['angry', 'happy', 'neutral', 'sad', 'surprised']
 
     def __init__(self, model_path=None):
         self.face_cascade = None
-        self.prediction_history = deque(maxlen=10)
+        self.prediction_history = deque(maxlen=8)
         self.model = None
 
         # Verify cv2 has CascadeClassifier attribute
@@ -56,18 +56,26 @@ class EmotionDetector:
     def predict_emotion(self, face_roi):
         """Predicts emotion distribution from cropped face."""
         if face_roi is None or face_roi.size == 0:
-            return "neutral", {"happy": 0.25, "sad": 0.25, "neutral": 0.50, "angry": 0.0}
+            return "neutral", {"happy": 0.2, "sad": 0.2, "neutral": 0.4, "angry": 0.1, "surprised": 0.1}
 
         if self.model is not None:
-            resized = cv2.resize(face_roi, (48, 48))
-            normalized = resized.astype("float32") / 255.0
-            reshaped = np.expand_dims(normalized, axis=-1)
-            reshaped = np.expand_dims(reshaped, axis=0)
-            predictions = self.model.predict(reshaped, verbose=0)[0]
+            try:
+                resized = cv2.resize(face_roi, (48, 48))
+                normalized = resized.astype("float32") / 255.0
+                reshaped = np.expand_dims(normalized, axis=-1)
+                reshaped = np.expand_dims(reshaped, axis=0)
+                raw_preds = self.model.predict(reshaped, verbose=0)[0]
+                # If model has 4 outputs, pad to 5
+                if len(raw_preds) == 4:
+                    predictions = np.append(raw_preds, 0.05)
+                else:
+                    predictions = raw_preds
+            except Exception:
+                predictions = self._heuristic_prediction(face_roi)
         else:
             predictions = self._heuristic_prediction(face_roi)
 
-        # Smooth predictions over time to guarantee >90% stable confidence
+        # Smooth predictions over time to guarantee stable confidence
         self.prediction_history.append(predictions)
         avg_predictions = np.mean(self.prediction_history, axis=0)
 
@@ -86,13 +94,16 @@ class EmotionDetector:
         mouth_var = float(np.var(mouth_region)) if mouth_region.size > 0 else 0.0
         eye_var = float(np.var(eye_region)) if eye_region.size > 0 else 0.0
 
-        if mouth_var > 1100:
-            probs = np.array([0.05, 0.78, 0.12, 0.05], dtype=np.float32)  # Happy
+        # Heuristic scoring with 5 emotion classes
+        if mouth_var > 1500 and eye_var > 1100:
+            probs = np.array([0.05, 0.10, 0.05, 0.05, 0.75], dtype=np.float32)  # Surprised
+        elif mouth_var > 1050:
+            probs = np.array([0.05, 0.75, 0.10, 0.05, 0.05], dtype=np.float32)  # Happy
         elif eye_var > 1300:
-            probs = np.array([0.75, 0.05, 0.12, 0.08], dtype=np.float32)  # Angry
+            probs = np.array([0.75, 0.05, 0.10, 0.05, 0.05], dtype=np.float32)  # Angry
         elif mouth_var < 450:
-            probs = np.array([0.08, 0.04, 0.20, 0.68], dtype=np.float32)  # Sad
+            probs = np.array([0.05, 0.05, 0.15, 0.70, 0.05], dtype=np.float32)  # Sad
         else:
-            probs = np.array([0.05, 0.10, 0.75, 0.10], dtype=np.float32)  # Neutral
+            probs = np.array([0.05, 0.10, 0.70, 0.10, 0.05], dtype=np.float32)  # Neutral
 
         return probs / np.sum(probs)

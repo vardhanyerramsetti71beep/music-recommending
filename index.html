@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodHarmonics AI | Lively Emotion-Driven Music Recommender</title>
+    
+    <!-- Meta tags for rich rendering -->
+    <meta name="description" content="Next-Gen Real-Time Facial Emotion AI Music Recommender with Dynamic Spectrum Visualizer and Intelligent Mood Libraries">
+    <meta name="theme-color" content="#080c14">
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Stylesheets with fallbacks for both relative and static URLs -->
+    <link rel="stylesheet" href="/static/CSS/style.css">
+    <link rel="stylesheet" href="static/CSS/style.css">
+</head>
+<body class="mood-neutral">
+
+    <!-- Interactive Background Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Ambient Glowing Emotion Orbs -->
+    <div class="ambient-glow glow-orb-1"></div>
+    <div class="ambient-glow glow-orb-2"></div>
+    <div class="ambient-glow glow-orb-3"></div>
+
+    <div class="app-container">
+
+        <!-- Top Header & Brand -->
+        <header class="app-header">
+            <div class="brand-section">
+                <div class="brand-logo-wrap" id="brand-logo">
+                    <i class="fa-solid fa-compact-disc"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Mood<span>Harmonics AI</span></h1>
+                    <p>Real-Time Facial Expression AI • Dynamic Soundscape & Music Libraries</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="status-pill">
+                    <span class="pulse-indicator" id="pulse-indicator"></span>
+                    <span id="system-status">Camera Inactive</span>
+                </div>
+                <button class="btn-add-library-top" id="btn-add-library-top">
+                    <i class="fa-solid fa-circle-plus"></i> Add to Library
+                </button>
+            </div>
+        </header>
+
+        <!-- Quick Facial Expression Simulator (Interactive Chips) -->
+        <section class="simulator-container">
+            <div class="simulator-label">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Instant Facial Expression Test:</span>
+            </div>
+            <div class="expression-chips">
+                <button class="chip-btn" data-emotion="happy">
+                    <span>😊 Happy</span>
+                </button>
+                <button class="chip-btn" data-emotion="sad">
+                    <span>😢 Sad</span>
+                </button>
+                <button class="chip-btn" data-emotion="angry">
+                    <span>😡 Angry</span>
+                </button>
+                <button class="chip-btn active" data-emotion="neutral">
+                    <span>😐 Neutral / Zen</span>
+                </button>
+                <button class="chip-btn" data-emotion="surprised">
+                    <span>😲 Surprised</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Dashboard 2-Column Grid -->
+        <main class="dashboard-grid">
+
+            <!-- ========================================================
+                 LEFT PANEL: Cyberpunk Live Face Expression Suite
+                 ======================================================== -->
+            <section class="glass-card left-panel-card">
+                <div class="card-title-bar">
+                    <h2>
+                        <i class="fa-solid fa-expand"></i>
+                        Live Facial Emotion Tracking
+                    </h2>
+                    <span class="badge-pill" id="camera-fps">FPS: 0 (Idle)</span>
+                </div>
+
+                <!-- High-Tech Camera Viewport with Sci-Fi Reticles -->
+                <div class="camera-viewport" id="camera-viewport">
+                    <video id="webcam" autoplay playsinline muted></video>
+                    <canvas id="overlay-canvas"></canvas>
+                    
+                    <!-- Sci-Fi Corner Brackets -->
+                    <div class="reticle-corner reticle-tl"></div>
+                    <div class="reticle-corner reticle-tr"></div>
+                    <div class="reticle-corner reticle-bl"></div>
+                    <div class="reticle-corner reticle-br"></div>
+                    
+                    <!-- Laser Scanline -->
+                    <div class="laser-scanline"></div>
+
+                    <!-- Floating Telemetry HUD Pill -->
+                    <div class="live-emotion-hud" id="live-emotion-hud">
+                        <div class="hud-emoji-box" id="hud-emoji">😐</div>
+                        <div class="hud-details">
+                            <span class="hud-emotion-title" id="hud-emotion">NEUTRAL</span>
+                            <span class="hud-confidence-tag" id="hud-confidence">95% Expression Match</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera Controls & Upload Option -->
+                <div class="camera-controls-bar">
+                    <div class="camera-btn-group">
+                        <button id="btn-toggle-cam" class="btn-primary-action">
+                            <i class="fa-solid fa-video"></i> Start Camera
+                        </button>
+                        <button id="btn-upload-photo" class="btn-secondary-action" title="Upload Face Photo">
+                            <i class="fa-solid fa-upload"></i> Upload Photo
+                        </button>
+                        <input type="file" id="photo-upload-input" accept="image/*" style="display: none;">
+                    </div>
+
+                    <div class="switch-toggle-wrap">
+                        <label class="switch-control">
+                            <input type="checkbox" id="auto-play-switch" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                        <span>Auto-Switch Library on Mood Change</span>
+                    </div>
+                </div>
+
+                <!-- Facial Expression Telemetry Meters -->
+                <div class="telemetry-grid">
+                    <div class="meter-card" id="meter-happy">
+                        <div class="meter-header">
+                            <span class="meter-title">😊 Happy</span>
+                            <span class="meter-pct" id="prob-happy">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill fill-happy" id="bar-happy"></div>
+                        </div>
+                    </div>
+
+                    <div class="meter-card" id="meter-sad">
+                        <div class="meter-header">
+                            <span class="meter-title">😢 Sad</span>
+                            <span class="meter-pct" id="prob-sad">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill fill-sad" id="bar-sad"></div>
+                        </div>
+                    </div>
+
+                    <div class="meter-card" id="meter-angry">
+                        <div class="meter-header">
+                            <span class="meter-title">😡 Angry</span>
+                            <span class="meter-pct" id="prob-angry">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill fill-angry" id="bar-angry"></div>
+                        </div>
+                    </div>
+
+                    <div class="meter-card active-meter" id="meter-neutral">
+                        <div class="meter-header">
+                            <span class="meter-title">😐 Neutral</span>
+                            <span class="meter-pct" id="prob-neutral">75%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill fill-neutral" id="bar-neutral" style="width: 75%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="meter-card" id="meter-surprised" style="grid-column: span 2;">
+                        <div class="meter-header">
+                            <span class="meter-title">😲 Surprised / Wonder</span>
+                            <span class="meter-pct" id="prob-surprised">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill fill-surprised" id="bar-surprised"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================
+                 RIGHT PANEL: Dynamic Emotion Music Library & Lively Turntable
+                 ======================================================== -->
+            <section class="glass-card right-panel-card">
+                
+                <!-- Dynamic Mood Library Hero Banner -->
+                <div class="library-hero-banner" id="library-hero-banner">
+                    <div class="library-banner-header">
+                        <div class="library-identity">
+                            <span class="library-emoji-badge" id="library-emoji-badge">😐</span>
+                            <div class="library-titles">
+                                <h3 id="library-banner-title">😐 Deep Zen, Focus & Ambient Flow</h3>
+                                <p id="library-banner-tagline">Calm, harmonious soundscapes designed for focus, coding, and balanced peace</p>
+                            </div>
+                        </div>
+                        <button class="btn-add-track-modal" id="btn-add-track-modal">
+                            <i class="fa-solid fa-plus"></i> Add Track
+                        </button>
+                    </div>
+
+                    <div class="library-meta-chips">
+                        <span class="meta-chip" id="library-track-count"><i class="fa-solid fa-music"></i> 4 Curated Tracks</span>
+                        <span class="meta-chip" id="library-duration"><i class="fa-solid fa-clock"></i> 15m 47s</span>
+                        <span class="meta-chip" id="library-energy"><i class="fa-solid fa-bolt"></i> Harmonic Balance (45%)</span>
+                    </div>
+                </div>
+
+                <!-- 3D Vinyl Turntable Stage -->
+                <div class="now-playing-stage" id="now-playing-stage">
+                    <div class="turntable-assembly" id="turntable-assembly">
+                        <div class="vinyl-disc">
+                            <div class="vinyl-label-center">
+                                <img id="vinyl-album-cover" src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80" alt="Vinyl Label">
+                            </div>
+                        </div>
+                        <!-- Mechanical Tonearm -->
+                        <div class="tonearm" id="turntable-tonearm">
+                            <div class="tonearm-base"></div>
+                            <div class="tonearm-stick"></div>
+                            <div class="tonearm-head"></div>
+                        </div>
+                    </div>
+
+                    <!-- Track Details Display -->
+                    <div class="track-meta-display">
+                        <h3 id="track-title">Deep Focus Study</h3>
+                        <p class="artist-text" id="track-artist">Mindflow Studio</p>
+                        
+                        <div class="track-tags-row">
+                            <span class="tag-genre-pill" id="track-genre-tag">Ambient Lo-Fi Chill</span>
+                            <span class="tag-mood-pill" id="track-mood-tag">Calm & Centered</span>
+                        </div>
+
+                        <div class="external-actions-row">
+                            <a id="spotify-link" href="https://open.spotify.com/search/Deep%20Focus%20Study" target="_blank" rel="noopener noreferrer" class="btn-external-link">
+                                <i class="fa-brands fa-spotify" style="color: #1db954;"></i> Spotify
+                            </a>
+                            <a id="youtube-link" href="https://www.youtube.com/results?search_query=Deep%20Focus%20Study" target="_blank" rel="noopener noreferrer" class="btn-external-link">
+                                <i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-Time Audio Frequency Spectrum Visualizer -->
+                <div class="visualizer-card">
+                    <canvas id="spectrum-canvas"></canvas>
+                </div>
+
+                <!-- Native Audio Element & Timeline Deck -->
+                <div class="timeline-deck">
+                    <audio id="audio-player" preload="auto"></audio>
+                    <div class="seeker-row">
+                        <span class="time-stamp" id="current-time">0:00</span>
+                        <input type="range" class="seek-range" id="seek-range" min="0" max="100" value="0">
+                        <span class="time-stamp" id="total-duration">3:45</span>
+                    </div>
+                </div>
+
+                <!-- Playback Control Deck -->
+                <div class="playback-controls">
+                    <div class="control-left-options">
+                        <button class="btn-ctrl" id="btn-shuffle" title="Shuffle Playlist">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </button>
+                        <button class="btn-ctrl" id="btn-repeat" title="Repeat Track">
+                            <i class="fa-solid fa-repeat"></i>
+                        </button>
+                    </div>
+
+                    <div class="center-play-group">
+                        <button class="btn-ctrl" id="btn-prev-track" title="Previous Track">
+                            <i class="fa-solid fa-backward-step"></i>
+                        </button>
+                        <button class="btn-play-hero" id="btn-play-pause" title="Play / Pause">
+                            <i class="fa-solid fa-play" id="play-icon"></i>
+                        </button>
+                        <button class="btn-ctrl" id="btn-next-track" title="Next Track">
+                            <i class="fa-solid fa-forward-step"></i>
+                        </button>
+                    </div>
+
+                    <div class="volume-deck">
+                        <i class="fa-solid fa-volume-high" id="volume-icon" title="Mute/Unmute"></i>
+                        <input type="range" id="volume-range" min="0" max="1" step="0.05" value="0.75">
+                    </div>
+                </div>
+
+                <!-- Interactive Emotion Library Tracklist & Search -->
+                <div class="playlist-section">
+                    <div class="playlist-header-row">
+                        <h3>
+                            <i class="fa-solid fa-layer-group"></i>
+                            Emotion Library Tracks
+                        </h3>
+                        <div class="library-search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="library-search-input" placeholder="Search track or artist...">
+                        </div>
+                    </div>
+                    <ul class="tracklist-container" id="tracklist-items">
+                        <!-- Populated dynamically by JavaScript -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ========================================================
+         MODAL: Add Track to Emotion Library
+         ======================================================== -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-folder-plus"></i> Add Song to Emotion Library</h3>
+                <button class="btn-close-modal" id="btn-close-modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form class="modal-form" id="add-track-form">
+                <div class="form-field-group">
+                    <label for="modal-target-emotion">Target Facial Expression / Emotion</label>
+                    <select class="form-control-select" id="modal-target-emotion" required>
+                        <option value="happy">😊 Happy (Euphoric Pop & Uplifting Grooves)</option>
+                        <option value="sad">😢 Sad (Melancholic Strings & Healing Lo-Fi)</option>
+                        <option value="angry">😡 Angry (Adrenaline Surge & High-Octane Rock)</option>
+                        <option value="neutral" selected>😐 Neutral (Deep Zen & Ambient Flow)</option>
+                        <option value="surprised">😲 Surprised (Cosmic Synthwave & Electric Wonder)</option>
+                    </select>
+                </div>
+
+                <div class="form-field-group">
+                    <label for="modal-track-title">Track Title</label>
+                    <input type="text" class="form-control-input" id="modal-track-title" placeholder="e.g. Moonlight Melody" required>
+                </div>
+
+                <div class="form-field-group">
+                    <label for="modal-track-artist">Artist / Band Name</label>
+                    <input type="text" class="form-control-input" id="modal-track-artist" placeholder="e.g. Celestial Sound" required>
+                </div>
+
+                <div class="form-field-group">
+                    <label for="modal-track-genre">Genre / Mood Tag</label>
+                    <input type="text" class="form-control-input" id="modal-track-genre" placeholder="e.g. Lo-Fi Chill / Uplifting Synth">
+                </div>
+
+                <div class="form-field-group">
+                    <label for="modal-track-url">Audio MP3 Stream URL</label>
+                    <input type="url" class="form-control-input" id="modal-track-url" placeholder="https://..." value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                </div>
+
+                <div class="form-field-group">
+                    <label for="modal-track-cover">Artwork Image URL</label>
+                    <input type="url" class="form-control-input" id="modal-track-cover" placeholder="https://..." value="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80">
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="preset-samples-box">
+                    <p>⚡ Quick Sample Fill Presets:</p>
+                    <div class="preset-chips-row">
+                        <button type="button" class="btn-preset-chip" 
+                            data-title="Neon Starlight" 
+                            data-artist="Aura Pulse" 
+                            data-genre="Synthwave Chill" 
+                            data-url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" 
+                            data-cover="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80">
+                            Synthwave
+                        </button>
+                        <button type="button" class="btn-preset-chip" 
+                            data-title="Zenith Peak" 
+                            data-artist="Cyber Apex" 
+                            data-genre="Electronic Dance" 
+                            data-url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" 
+                            data-cover="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80">
+                            EDM Surge
+                        </button>
+                        <button type="button" class="btn-preset-chip" 
+                            data-title="Rainy Cafe" 
+                            data-artist="Velvet Rain" 
+                            data-genre="Acoustic Lo-Fi" 
+                            data-url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" 
+                            data-cover="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=80">
+                            Acoustic Lo-Fi
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit-track" id="btn-submit-track">
+                    <i class="fa-solid fa-plus"></i> Add to Emotion Library
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lively Toast Notification -->
+    <div class="toast-notice" id="toast-notice">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Expression updated!</span>
+    </div>
+
+    <!-- Scripts with fallback for both relative and static URLs -->
+    <script src="/static/JS/app.js"></script>
+    <script src="static/JS/app.js"></script>
+</body>
+</html>
