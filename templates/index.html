@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodHarmonics | Real-Time Emotion Music Recommender</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="background-glow glow-1"></div>
+    <div class="background-glow glow-2"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-compact-disc spin-record"></i>
+                <h1>Mood<span>Harmonics</span></h1>
+            </div>
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span id="system-status">Camera Inactive</span>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <main class="dashboard-grid">
+            <!-- Left Panel: Webcam Feed & Emotion Telemetry -->
+            <section class="card camera-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-camera"></i> Live Facial Recognition</h2>
+                    <span class="badge" id="camera-fps">FPS: 0</span>
+                </div>
+
+                <div class="webcam-viewport">
+                    <video id="webcam" autoplay playsinline muted></video>
+                    <canvas id="overlay-canvas"></canvas>
+                    <div class="scanline"></div>
+                    
+                    <div class="emotion-hud" id="emotion-hud">
+                        <span id="hud-emoji">😐</span>
+                        <span id="hud-emotion">Detecting...</span>
+                        <span id="hud-confidence">94% Match</span>
+                    </div>
+                </div>
+
+                <div class="controls-bar">
+                    <button id="btn-toggle-cam" class="btn btn-primary">
+                        <i class="fa-solid fa-play"></i> Start Camera
+                    </button>
+                    <div class="toggle-wrapper">
+                        <label class="switch">
+                            <input type="checkbox" id="auto-play-switch" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span>Auto-Switch Music on Mood Change</span>
+                    </div>
+                </div>
+
+                <!-- Emotion Probability Meters -->
+                <div class="metrics-grid">
+                    <div class="metric-bar">
+                        <div class="metric-label"><span>😊 Happy</span><span id="prob-happy">0%</span></div>
+                        <div class="progress"><div class="fill fill-happy" id="bar-happy"></div></div>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="metric-label"><span>😢 Sad</span><span id="prob-sad">0%</span></div>
+                        <div class="progress"><div class="fill fill-sad" id="bar-sad"></div></div>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="metric-label"><span>😡 Angry</span><span id="prob-angry">0%</span></div>
+                        <div class="progress"><div class="fill fill-angry" id="bar-angry"></div></div>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="metric-label"><span>😐 Neutral</span><span id="prob-neutral">0%</span></div>
+                        <div class="progress"><div class="fill fill-neutral" id="bar-neutral"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Music Recommendation & Player -->
+            <section class="card player-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-headphones-simple"></i> Recommended Track</h2>
+                    <span class="badge mood-tag" id="current-mood-tag">Neutral Mood</span>
+                </div>
+
+                <!-- Vinyl & Track Details -->
+                <div class="now-playing-box">
+                    <div class="album-art-wrap">
+                        <img id="album-cover" src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&q=80" alt="Album Cover">
+                        <div class="vinyl-record" id="vinyl-disc"></div>
+                    </div>
+                    <div class="track-info">
+                        <h3 id="track-title">Deep Focus Study</h3>
+                        <p id="track-artist">Mindflow Studio</p>
+                        <span class="genre-pill" id="track-genre">Ambient Lo-Fi Chill</span>
+                        <p class="track-mood" id="track-mood">Mood: Calm & Centered</p>
+                    </div>
+                </div>
+
+                <!-- Audio Visualizer Equalizer -->
+                <div class="equalizer-container">
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                </div>
+
+                <!-- Native Audio Player Controls -->
+                <div class="audio-controls">
+                    <audio id="audio-player" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" preload="auto"></audio>
+                    <button id="btn-play-pause" class="btn-circle btn-large">
+                        <i class="fa-solid fa-play" id="play-icon"></i>
+                    </button>
+                    <div class="volume-slider-box">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <input type="range" id="volume-range" min="0" max="1" step="0.05" value="0.7">
+                    </div>
+                </div>
+
+                <!-- Dynamic Playlist Recommendations -->
+                <div class="playlist-section">
+                    <h3><i class="fa-solid fa-list-music"></i> Mood Playlist</h3>
+                    <ul class="playlist" id="playlist-items">
+                        <!-- Filled by Javascript -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
