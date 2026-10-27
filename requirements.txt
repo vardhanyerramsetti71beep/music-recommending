@@ -1,8 +1,7 @@
 flask>=3.0.0
 flask-cors>=4.0.0
-opencv-python>=4.8.0
+# The headless build avoids desktop GUI libraries that are not used on Vercel.
+opencv-python-headless>=4.8.0
 numpy>=1.24.0
-scikit-learn>=1.4.0
 pillow>=10.0.0
 requests>=2.31.0
-tensorflow>=2.14.0
